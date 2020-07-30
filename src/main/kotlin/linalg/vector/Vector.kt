@@ -1,6 +1,7 @@
 package linalg.vector
 
 import java.lang.IllegalArgumentException
+import java.math.RoundingMode
 
 class Vector(
         private val coordinates: List<Double> = listOf()
@@ -11,7 +12,7 @@ class Vector(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (coordinates.size != (other as Vector).coordinates.size )
+        if (coordinates.size != (other as Vector).coordinates.size)
             return false
 
         val pairList = coordinates.zip((other as Vector).coordinates)
@@ -25,5 +26,12 @@ class Vector(
         return "Vector: $coordinates"
     }
 
-    fun plus(vector: Vector) = coordinates.zip(vector.coordinates).map { it.first + it.second }
+    fun plus(vector: Vector): Vector {
+        if (coordinates.size != vector.coordinates.size)
+            throw IllegalArgumentException("Coordinates must be nonempty")
+
+        return Vector(
+                coordinates.zip(vector.coordinates).map { it.first.plus(it.second) }
+        )
+    }
 }
