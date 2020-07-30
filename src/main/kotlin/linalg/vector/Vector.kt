@@ -26,12 +26,27 @@ class Vector(
         return "Vector: $coordinates"
     }
 
-    fun plus(vector: Vector): Vector {
-        if (coordinates.size != vector.coordinates.size)
+    fun plus(other: Vector, scale: Int): Vector {
+        if (coordinates.size != other.coordinates.size)
             throw IllegalArgumentException("Coordinates must be nonempty")
 
         return Vector(
-                coordinates.zip(vector.coordinates).map { it.first.plus(it.second) }
+                coordinates.zip(other.coordinates).map { it.first.plus(it.second).toBigDecimal().setScale(scale, RoundingMode.HALF_UP).toDouble() }
+        )
+    }
+
+    fun minus(other: Vector, scale: Int): Vector {
+        if (coordinates.size != other.coordinates.size)
+            throw IllegalArgumentException("Coordinates must be nonempty")
+
+        return Vector(
+                coordinates.zip(other.coordinates).map { it.first.minus(it.second).toBigDecimal().setScale(scale, RoundingMode.HALF_UP).toDouble() }
+        )
+    }
+
+    fun multiply(scalar: Double, scale: Int): Vector {
+        return Vector(
+                coordinates.map { it.times(scalar).toBigDecimal().setScale(scale, RoundingMode.HALF_UP).toDouble() }
         )
     }
 }
