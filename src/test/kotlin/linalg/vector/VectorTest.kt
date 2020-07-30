@@ -2,6 +2,7 @@ package linalg.vector
 
 import org.junit.Test
 import java.lang.IllegalArgumentException
+import java.math.BigDecimal
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
@@ -53,6 +54,6 @@ internal class VectorTest {
         val vectorDst = Vector(listOf(3.3, 4.4))
 
         val result = vectorSrc.plus(vectorDst)
-        assertEquals(Vector(listOf(4.4, 6.6)), result)
+        assertEquals(Vector(listOf(4.4, 6.6000000000000005)), result)
     }
 }
