@@ -3,13 +3,18 @@
  */
 package linalg
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
-}
+import linalg.vector.Vector
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    val vectorOne = Vector(listOf(-0.221, 7.437))
+    println(vectorOne.magnitude(3))
+
+    val vectorTwo = Vector(listOf(8.813, -1.331, -6.247))
+    println(vectorTwo.magnitude(3))
+
+    val vectorThree = Vector(listOf(5.581, -2.136))
+    println(vectorThree.normalized(3))
+
+    val vectorFour = Vector(listOf(1.996, 3.108, -4.554))
+    println(vectorFour.normalized(3))
 }

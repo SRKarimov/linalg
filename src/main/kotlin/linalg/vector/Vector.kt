@@ -2,6 +2,8 @@ package linalg.vector
 
 import java.lang.IllegalArgumentException
 import java.math.RoundingMode
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class Vector(
         private val coordinates: List<Double> = listOf()
@@ -48,5 +50,16 @@ class Vector(
         return Vector(
                 coordinates.map { it.times(scalar).toBigDecimal().setScale(scale, RoundingMode.HALF_UP).toDouble() }
         )
+    }
+
+    fun magnitude(scale: Int) = sqrt(coordinates.map { it.pow(2) }.sum()).toBigDecimal().setScale(scale, RoundingMode.HALF_UP).toDouble()
+
+    fun normalized(scale: Int): Vector {
+        try {
+            val magnitude = magnitude(scale)
+            return multiply(1.0 / magnitude, scale)
+        }catch (ex: Exception) {
+            throw Exception("Can not normalize the zero vector")
+        }
     }
 }
